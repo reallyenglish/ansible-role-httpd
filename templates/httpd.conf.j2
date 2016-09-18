@@ -1,0 +1,25 @@
+{% if httpd_conf_chroot %}
+chroot "{{ httpd_conf_chroot }}"
+{% endif %}
+{% if httpd_conf_default_type %}
+default type "{{ httpd_default_type }}"
+{% endif %}
+{% if httpd_conf_logdir %}
+logdir "{{ httpd_conf_logdir }}"
+{% endif %}
+
+{{ httpd_conf_macro }}
+
+prefork {{ httpd_conf_prefork }}
+
+types {
+{% for type in httpd_conf_type_files %}
+  include "{{ type }}"
+{% endfor %}
+}
+
+{% for domain in httpd_conf_domains %}
+server "{{ domain.name }}" {
+{{ domain.config | indent(2, True) }}
+}
+{% endfor %}

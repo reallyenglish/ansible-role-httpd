@@ -1,49 +1,30 @@
 require 'spec_helper'
 require 'serverspec'
 
-package = 'httpd'
 service = 'httpd'
-config  = '/etc/httpd/httpd.conf'
-user    = 'httpd'
-group   = 'httpd'
-ports   = [ PORTS ]
-log_dir = '/var/log/httpd'
-db_dir  = '/var/lib/httpd'
-
-case os[:family]
-when 'freebsd'
-  config = '/usr/local/etc/httpd.conf'
-  db_dir = '/var/db/httpd'
-end
-
-describe package(package) do
-  it { should be_installed }
-end 
+config  = '/etc/httpd.conf'
+user    = 'www'
+group   = 'www'
+ports   = [ 80 ]
+log_dir = '/var/www/logs'
 
 describe file(config) do
   it { should be_file }
-  its(:content) { should match Regexp.escape('httpd') }
+  its(:content) { should_not match /^chroot\s+/ }
+  its(:content) { should_not match /^default type\s+/ }
+  its(:content) { should_not match /^logdir\s+/ }
+  its(:content) { should match /interface = "egress"/ }
+  its(:content) { should match /prefork 2/ }
+  its(:content) { should match /types {\n\s+include "#{ Regexp.escape('/usr/share/misc/mime.types') }"/ }
+  its(:content) { should match /server "default" {\n\s+listen on \* port 80\n}/ }
+  its(:content) { should match /server "example.org" {\n\s+listen on \$interface port 80\n}/ }
 end
 
 describe file(log_dir) do
   it { should exist }
   it { should be_mode 755 }
-  it { should be_owned_by user }
-  it { should be_grouped_into group }
-end
-
-describe file(db_dir) do
-  it { should exist }
-  it { should be_mode 755 }
-  it { should be_owned_by user }
-  it { should be_grouped_into group }
-end
-
-case os[:family]
-when 'freebsd'
-  describe file('/etc/rc.conf.d/httpd') do
-    it { should be_file }
-  end
+  it { should be_owned_by 'root' }
+  it { should be_grouped_into 'daemon' }
 end
 
 describe service(service) do
@@ -55,4 +36,8 @@ ports.each do |p|
   describe port(p) do
     it { should be_listening }
   end
+end
+
+describe command('ftp -o -  http://localhost/bgplg/index.html') do
+  its(:stdout) { should match Regexp.escape('<title>bgplg...</title>') }
 end

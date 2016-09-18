@@ -1,7 +1,16 @@
-httpd_user: httpd
-httpd_group: httpd
-httpd_log_dir: /var/log/httpd
-httpd_db_dir: "{{ __httpd_db_dir }}"
+httpd_user: www
+httpd_group: www
+httpd_chroot_dir: /var/www
+httpd_log_dir: "{{ httpd_chroot_dir }}/logs"
 httpd_service: httpd
-httpd_conf: "{{ __httpd_conf }}"
+httpd_conf_file: /etc/httpd.conf
 httpd_flags: ""
+
+httpd_conf_chroot: ""
+httpd_conf_default_type: ""
+httpd_conf_logdir: ""
+httpd_conf_macro: ""
+httpd_conf_type_files:
+  - /usr/share/misc/mime.types
+httpd_conf_domains: []
+httpd_conf_prefork: 2

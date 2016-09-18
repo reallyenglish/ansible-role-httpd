@@ -2,4 +2,12 @@
   roles:
     - ansible-role-httpd
   vars:
-    httpd_config: ""
+    httpd_conf_macro: |
+      interface = "egress"
+    httpd_conf_domains:
+      - name: default
+        config: |
+          listen on * port 80
+      - name: example.org
+        config: |
+          listen on $interface port 80
