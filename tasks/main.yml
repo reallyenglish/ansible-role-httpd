@@ -1,0 +1,36 @@
+---
+# tasks file for ansible-role-httpd
+
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- include: "install-{{ ansible_os_family }}.yml"
+
+- name: Create log directory
+  file:
+    path: "{{ httpd_log_dir }}"
+    mode: 0755
+    owner: "{{ httpd_user }}"
+    group: "{{ httpd_group }}"
+    state: directory
+  notify: Restart httpd
+
+- name: Create db directory
+  file:
+    path: "{{ httpd_db_dir }}"
+    mode: 0755
+    owner: "{{ httpd_user }}"
+    group: "{{ httpd_group }}"
+    state: directory
+  notify: Restart httpd
+
+- name: Create httpd.conf
+  template:
+    src: httpd.conf.j2
+    dest: "{{ httpd_conf }}"
+  notify: Restart httpd
+
+- name: Start httpd
+  service:
+    name: "{{ httpd_service }}"
+    enabled: true
+    state: started

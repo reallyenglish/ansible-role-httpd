@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - ansible-role-httpd
+  vars:
+    httpd_config: ""

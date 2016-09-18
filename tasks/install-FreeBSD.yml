@@ -1,0 +1,6 @@
+---
+
+- name: Install httpd
+  pkgng:
+    name: httpd
+    state: present

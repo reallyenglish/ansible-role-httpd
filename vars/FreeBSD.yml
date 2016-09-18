@@ -1,0 +1,2 @@
+__httpd_db_dir: /var/db/httpd
+__httpd_conf: /usr/local/etc/httpd.conf
