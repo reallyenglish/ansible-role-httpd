@@ -1,7 +1,5 @@
 httpd_user: www
 httpd_group: www
-httpd_chroot_dir: /var/www
-httpd_log_dir: "{{ httpd_chroot_dir }}/logs"
 httpd_service: httpd
 httpd_conf_file: /etc/httpd.conf
 httpd_flags: ""

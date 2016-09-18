@@ -6,7 +6,6 @@ config  = '/etc/httpd.conf'
 user    = 'www'
 group   = 'www'
 ports   = [ 80 ]
-log_dir = '/var/www/logs'
 
 describe file(config) do
   it { should be_file }
@@ -18,13 +17,6 @@ describe file(config) do
   its(:content) { should match /types {\n\s+include "#{ Regexp.escape('/usr/share/misc/mime.types') }"/ }
   its(:content) { should match /server "default" {\n\s+listen on \* port 80\n}/ }
   its(:content) { should match /server "example.org" {\n\s+listen on \$interface port 80\n}/ }
-end
-
-describe file(log_dir) do
-  it { should exist }
-  it { should be_mode 755 }
-  it { should be_owned_by 'root' }
-  it { should be_grouped_into 'daemon' }
 end
 
 describe service(service) do

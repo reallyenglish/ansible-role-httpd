@@ -5,15 +5,6 @@
     that:
       - "ansible_os_family == 'OpenBSD'"
 
-- name: Create log directory
-  file:
-    path: "{{ httpd_log_dir }}"
-    mode: 0755
-    owner: root
-    group: daemon
-    state: directory
-  notify: Restart httpd
-
 - name: Create httpd.conf
   template:
     src: httpd.conf.j2
