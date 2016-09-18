@@ -19,10 +19,10 @@ Role Variables
 | httpd\_conf\_file | path to [httpd.conf(5)](http://man.openbsd.org/httpd.conf.5) | /etc/httpd.conf |
 | httpd\_flags | (unused) | "" |
 | httpd\_conf\_chroot | see [httpd.conf(5)](http://man.openbsd.org/httpd.conf.5) | "" |
-| httpd\_conf\_default\_type | [httpd.conf(5)](http://man.openbsd.org/httpd.conf.5) | "" |
-| httpd\_conf\_logdir | [httpd.conf(5)](http://man.openbsd.org/httpd.conf.5) | "" |
+| httpd\_conf\_default\_type | see [httpd.conf(5)](http://man.openbsd.org/httpd.conf.5) | "" |
+| httpd\_conf\_logdir | see [httpd.conf(5)](http://man.openbsd.org/httpd.conf.5) | "" |
 | httpd\_conf\_macro | a string of macro to defined in global section | "" |
-| httpd\_conf\_type\_files | | ["/usr/share/misc/mime.types"] |
+| httpd\_conf\_type\_files | a list of path to `type` files | ["/usr/share/misc/mime.types"] |
 | httpd\_conf\_domains | see below | [] |
 | httpd\_conf\_prefork | number of prefork | 2 |
 
