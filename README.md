@@ -29,9 +29,10 @@ Role Variables
 
 ## httpd\_conf\_domains
 
-httpd\_conf\_domains is a list of a dict.
+httpd\_conf\_domains is a list of dict.
 
 | key | value |
+|-----|-------|
 | name | server name |
 | config | a string of the server's config. this string is enclosed by `server $name { }` |
 
