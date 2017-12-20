@@ -1,15 +1,12 @@
-ansible-role-httpd
-=====================
+# ansible-role-httpd
 
 Configure OpenBSD's [httpd(8)](http://man.openbsd.org/httpd.8).
 
-Requirements
-------------
+# Requirements
 
 None
 
-Role Variables
---------------
+# Role Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -36,14 +33,12 @@ httpd\_conf\_domains is a list of dict.
 | name | server name |
 | config | a string of the server's config. this string is enclosed by `server $name { }` |
 
-Dependencies
-------------
+# Dependencies
 
 None
 
-Example Playbook
-----------------
-
+# Example Playbook
+```yaml
     - hosts: localhost
       roles:
         - ansible-role-httpd
@@ -57,9 +52,9 @@ Example Playbook
           - name: example.org
             config: |
               listen on $interface port 80
+```
 
-License
--------
+# License
 
 Copyright (c) 2016 Tomoyuki Sakurai <tomoyukis@reallyenglish.com>
 
@@ -75,8 +70,7 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-Author Information
-------------------
+# Author Information
 
 Tomoyuki Sakurai <tomoyukis@reallyenglish.com>
 
