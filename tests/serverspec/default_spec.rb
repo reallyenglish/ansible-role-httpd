@@ -1,11 +1,11 @@
-require 'spec_helper'
-require 'serverspec'
+require "spec_helper"
+require "serverspec"
 
-service = 'httpd'
-config  = '/etc/httpd.conf'
-user    = 'www'
-group   = 'www'
-ports   = [ 80 ]
+service = "httpd"
+config  = "/etc/httpd.conf"
+user    = "www"
+group   = "www"
+ports   = [80]
 
 describe file(config) do
   it { should be_file }
@@ -30,6 +30,6 @@ ports.each do |p|
   end
 end
 
-describe command('ftp -o -  http://localhost/bgplg/index.html') do
-  its(:stdout) { should match Regexp.escape('<title>bgplg...</title>') }
+describe command("ftp -o -  http://localhost/bgplg/index.html") do
+  its(:stdout) { should match Regexp.escape("<title>bgplg...</title>") }
 end
